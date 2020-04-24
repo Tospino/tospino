@@ -1,0 +1,23 @@
+{
+  "id": "501137",
+  "name": "下载",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1126875",
+      "name": "jian",
+      "font_class": "weibiaoti512",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "1206343",
+      "name": "分享",
+      "font_class": "fenxiang",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    }
+  ]
+}
