@@ -18,7 +18,7 @@
                 <van-button type="info" size="large" class="load-btn" @click="confirm">立即付款</van-button>
             </div>
         </van-action-sheet>
-        <action-sheet-yinhang ref="actionSheetYinhang"></action-sheet-yinhang>
+        <action-sheet-yinhang ref="actionSheetYinhang" :orderSn='orderSn'></action-sheet-yinhang>
     </div>
 </template>
 
@@ -30,6 +30,9 @@ export default {
         moeny:{
             type:Number,
             default:0
+        },
+        orderSn: {
+            type: String
         }
     },
     data() {
@@ -65,7 +68,9 @@ export default {
 
     },
     methods: {
+        // 立即支付
         confirm(){
+            
             this.$emit('showPassWord',true,'支付')
         },
         getonlinepaytypelist(){

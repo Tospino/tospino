@@ -5,7 +5,8 @@
             <div class="paymen-content">
                 <div class="paymen-content-top" @click="payMode">
                     <span>付款方式</span>
-                    <van-icon name="arrow" class="fl-right"/>
+                    <van-icon name="arrow" class="fl-right" @bank(i)="paybank" :showbank='showbank'/>
+                    <!-- <van-icon name="arrow" class="fl-right" @bank(i)="paybank" :showbank='showbank'/> -->
                     <span>中国银行</span>
                 </div>
                 <div class="paymen-content-top">
@@ -28,7 +29,8 @@ export default {
     },
     data() {
         return {
-            showAction:false
+            showAction:false,
+            // sendpaybank:''
         };
     },
     computed: {
@@ -51,7 +53,10 @@ export default {
         //付款方式
         payMode(){
             this.$emit('showyinhang')
-        }
+        },
+        // paybank(i){
+        //     this.sendpaybank=i;
+        // }
     },
     components: {
 

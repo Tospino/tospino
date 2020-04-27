@@ -25,7 +25,8 @@
             <div class="settlement">
                 <span class="settlement-text">
                     <van-checkbox v-model="checked" icon-size="24px" class="checkbox" checked-color="#F83600" @change="allCheckBox"></van-checkbox>
-                    <span class="btn1" @click="assign" :style="{backgroundColor:(btnFlag?'#FA5300':'#999')}">确认</span>
+                    <span class="btn1" @click="assign" :style="{backgroundColor:(btnFlag?'#FA5300':'#999')}">确认</span> 
+                    
                     <span class="p1">全选</span>
                 </span>
             </div>

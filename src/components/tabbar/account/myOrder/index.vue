@@ -41,7 +41,7 @@
         <!-- 密码弹窗 -->
         <action-sheet-password ref="actionSheetPassword" @getPassWord="getPassWord" :typeLeixing="typeLeixing"></action-sheet-password>
         <!-- 付款方式弹窗 -->
-        <action-sheet-paymen ref="actionSheetPaymen" :moeny="moeny" @showPassWord="showPassWord"></action-sheet-paymen>
+        <action-sheet-paymen ref="actionSheetPaymen" :moeny="moeny" @showPassWord="showPassWord" :orderSn='orderData.orderSn'></action-sheet-paymen>
     </div>
 </template>
 
@@ -301,7 +301,7 @@ export default {
                     Toast('该订单不是待收货状态，不能确认收货')
                 }
             })
-        }
+        },
     },
     components: {
         noSearch,

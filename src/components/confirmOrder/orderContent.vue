@@ -208,6 +208,7 @@ export default {
       shopcrtList: [],
       moeny: 0,
       payTypeDetail: 201, //余额支付ID,暂时写死
+      //   payTypeDetail: 203, //余额支付ID,暂时写死
       orderIdList: [],
       // 用户支付
       userinfoShop: {}
@@ -412,33 +413,18 @@ export default {
         console.log("测试", res.Data[0].orderSn);
         let orderIdArr = [];
         if (res.code == 0) {
-          park({
-            url: `/appWallet/CreateInvoice?orderCode=${res.Data[0].orderSn}`,
-            // data: {
-            //   orderCode: res.Data[0].orderSn
-            // },
-            method: "POST"
-          }).then(res => {
-            console.log(res);
-            if (res.status_code) {
-              //   window.open(res.data.resultUrl, "_blank");
-            //   window.location.href = res.Data[0].resultUrl;
-                this.$router.replace({path: '/myOrder/myOrderList'})
-              window.location.href = res.data.resultUrl;
-            }
-          });
-          //支付方式为货到付款,直接跳转到我的订单(待发货)
-          // if(this.zffs == 1){
-          //     this.$router.replace({name:'我的订单'})
-          //     sessionStorage.setItem("activeIndex", 2);
-          // }else{
-          //     //弹出支付弹框
-          //     this.showpaymen()
-          //     res.Data.forEach(item => {
-          //         orderIdArr.push({orderId:Number(item.orderId)})
-          //     })
-          //     this.orderIdList = orderIdArr
-          // }
+          //   支付方式为货到付款,直接跳转到我的订单(待发货)
+          if (this.zffs == 1) {
+            this.$router.replace({ name: "我的订单" });
+            sessionStorage.setItem("activeIndex", 2);
+          } else {
+            //弹出支付弹框
+            this.showpaymen();
+            res.Data.forEach(item => {
+              orderIdArr.push({ orderId: Number(item.orderId) });
+            });
+            this.orderIdList = orderIdArr;
+          }
         } else if (res.code == 1) {
           Toast("参数requestModel不能为空");
         } else if (res.code == 2) {
