@@ -128,6 +128,10 @@ import inforDetails from '@/components/tabbar/account/information/details'
 //扫码
 import sweepCode from '@/multiplexing/sweepCode'
 
+//第三方支付
+
+import thirdPartyPayment from '@/components/confirmOrder/thirdPartyPayment'
+
 
 Vue.use(Router)
 
@@ -619,7 +623,14 @@ export default new Router({
       path: '/sweepCode',
       name: '扫码',
       component: sweepCode
-    },
+    }
+
+
+    // {
+    //   path: '/thirdPartyPayment',
+    //   name: '第三方支付页',
+    //   component: thirdPartyPayment
+    // },
 
   ],
   

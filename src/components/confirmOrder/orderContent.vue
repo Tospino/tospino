@@ -149,6 +149,7 @@
     <!-- 付款方式弹窗 -->
     <action-sheet-paymen
       ref="actionSheetPaymen"
+      :orderSn="orderSn"
       :moeny="Number(orderData.allOrderAmountWebsite)"
       @showPassWord="showPassWord"
       @showpaymen="showpaymen"
@@ -171,9 +172,7 @@ import { park } from "@/api";
 import { mapState, mapActions } from "vuex";
 import { Toast } from "vant";
 export default {
-  props: {
-    orderSn:''
-  },
+  props: {},
   data() {
     return {
       value1: 1,
@@ -209,10 +208,13 @@ export default {
       payTypeList: [], //支付方式列表
       shopcrtList: [],
       moeny: 0,
-      payTypeDetail: 201, //余额支付ID,暂时写死
+      //   payTypeDetail: 201, //余额支付ID,暂时写死
+      payTypeDetail: 203, //余额支付ID,暂时写死
       orderIdList: [],
       // 用户支付
-      userinfoShop: {}
+      userinfoShop: {},
+      orderSn:""
+      
     };
   },
   computed: {
@@ -411,7 +413,8 @@ export default {
         shopcrtList: this.shopcrtList
       };
       batchmakeorderApi(obj).then(res => {
-        this.orderSn=res.Data[0].orderSn
+        console.log(res)
+        // this.orderSn=res.Data[0].orderSn
         console.log("测试", res.Data[0].orderSn);
         let orderIdArr = [];
         if (res.code == 0) {
@@ -426,6 +429,7 @@ export default {
               orderIdArr.push({ orderId: Number(item.orderId) });
             });
             this.orderIdList = orderIdArr;
+            this.orderSn=this.orderIdList[0].orderId+""
           }
         } else if (res.code == 1) {
           Toast("参数requestModel不能为空");
@@ -470,7 +474,10 @@ export default {
 
     //订单发起支付
     orderlaunchpay(data) {
+
       orderlaunchpayApi(data).then(res => {
+        console.log(data);
+
         if (res.code == 0) {
           this.showsucess();
         } else if (res.code == 1) {
@@ -516,6 +523,8 @@ export default {
       this.orderlaunchpay(obj);
     },
     showPassWord(flag) {
+      console.log(flag);
+      console.log("第三方支付弹起");
       this.$refs.actionSheetPassword.showAction = flag;
     }
   },

@@ -22,12 +22,7 @@
         <van-button type="info" size="large" class="load-btn" @click="confirm">立即付款</van-button>
       </div>
     </van-action-sheet>
-    <action-sheet-yinhang
-      ref="actionSheetYinhang"
-      :orderSn="orderSn"
-      @toParnet="fnParent"
-      @change="onChangePayMethod"
-    ></action-sheet-yinhang>
+    <action-sheet-yinhang ref="actionSheetYinhang" :orderSn="orderSn" @toParent="fnParent"></action-sheet-yinhang>
   </div>
 </template>
 
@@ -52,23 +47,18 @@ export default {
         {
           type: 201,
           name: "余额支付"
-        },
-        {
-          type: 203,
-          name: "第三方支付"
         }
       ],
-      list: [],
-      oneTypeName: ""
+      list: []
     };
   },
   computed: {
-    // oneTypeName() {
-    //   let name = "";
-    //   if (this.list.length == 0) return;
-    //   name = this.orderStatus(this.list[0].payTypeDetail, "payTypeList");
-    //   return name;
-    // },
+    oneTypeName() {
+      let name = "";
+      if (this.list.length == 0) return;
+      name = this.orderStatus(this.list[0].payTypeDetail, "payTypeList");
+      return name;
+    },
     paymoeny() {
       return this.moeny;
     }
@@ -79,25 +69,18 @@ export default {
   },
   watch: {},
   methods: {
-    onChangePayMethod(item) {
-      this.oneTypeName = item.msg;
-      console.log("paymethod", item);
-    },
-    // 付款方式
     fnParent(e) {
-      this.oneTypeName = e.name;
-      console.log("付款方式", e);
       this.payTypeList = [
         {
           name: e.name,
           type: e.type
         }
       ];
-      this.list[0].payTypeList = e.type;
-      this.list[0].payTypeDetail = e.name;
+      this.list[0].payTypeDetail = e.type;
+      this.list[0].payTypeNameDetail = e.name;
+
       this.$refs.actionSheetYinhang.showAction = false;
     },
-    // 立即支付
     confirm() {
       if (this.payTypeList[0].type === 203) {
         park({
@@ -109,21 +92,16 @@ export default {
           }
         }).then(res => {
           // window.location.href = res.Data.payMainNo
-          console.log(res);
+          console.log(res)
           park({
-            url: `/appWallet/CreateInvoice?payMainNo=${res.Data.payMainNo}`,
-            method: "POST"
+            url: `/appWallet/CreateInvoice?orderCode=${res.Data.payMainNo}`,
+            method: "GET"
           }).then(result => {
-            // console.log(result);
-            if (result.status_code === 200) {
-              // 第三方支付页面跳转
-              // this.$store.commit("GETTHIRDPARTYPAYMENTURL",result.data.resultUrl);
-              // console.log(this.$store.state.thirdPartyPaymentUrl)
-              // this.$router.push("/thirdPartyPayment")
-              window.location.href = result.data.resultUrl;
-            }
+            console.log(result)
+          
           });
         });
+
         return;
       }
       this.$emit("showPassWord", true, "支付");
@@ -132,10 +110,6 @@ export default {
       getonlinepaytypelistApi({}).then(res => {
         if (res.code == 0) {
           this.list = res.Data;
-          this.oneTypeName = this.oneTypeName =
-            this.list.length > 0
-              ? this.orderStatus(this.list[0].payTypeDetail, "payTypeList")
-              : "";
         }
       });
     },
@@ -151,6 +125,8 @@ export default {
     },
     //展示支付方式列表
     showyinhang() {
+      console.log("---打开-----");
+      console.log(this.$refs.actionSheetYinhang.showAction);
       this.$refs.actionSheetYinhang.showAction = true;
     }
   },

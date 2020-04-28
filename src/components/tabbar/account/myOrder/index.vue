@@ -41,7 +41,7 @@
         <!-- 密码弹窗 -->
         <action-sheet-password ref="actionSheetPassword" @getPassWord="getPassWord" :typeLeixing="typeLeixing"></action-sheet-password>
         <!-- 付款方式弹窗 -->
-        <action-sheet-paymen ref="actionSheetPaymen" :moeny="moeny" @showPassWord="showPassWord" :orderSn='orderData.orderSn'></action-sheet-paymen>
+        <action-sheet-paymen ref="actionSheetPaymen" :moeny="moeny" @showPassWord="showPassWord" :orderSn='orderData.orderId'></action-sheet-paymen>
     </div>
 </template>
 
