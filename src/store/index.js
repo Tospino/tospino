@@ -45,7 +45,7 @@ const state = {
     
     classifyKeep:false, //分类是否缓存
 }
-const getters = {
+const getters={
     
 }
 

@@ -171,7 +171,9 @@ import { park } from "@/api";
 import { mapState, mapActions } from "vuex";
 import { Toast } from "vant";
 export default {
-  props: {},
+  props: {
+    orderSn:''
+  },
   data() {
     return {
       value1: 1,
@@ -208,7 +210,6 @@ export default {
       shopcrtList: [],
       moeny: 0,
       payTypeDetail: 201, //余额支付ID,暂时写死
-      //   payTypeDetail: 203, //余额支付ID,暂时写死
       orderIdList: [],
       // 用户支付
       userinfoShop: {}
@@ -410,6 +411,7 @@ export default {
         shopcrtList: this.shopcrtList
       };
       batchmakeorderApi(obj).then(res => {
+        this.orderSn=res.Data[0].orderSn
         console.log("测试", res.Data[0].orderSn);
         let orderIdArr = [];
         if (res.code == 0) {

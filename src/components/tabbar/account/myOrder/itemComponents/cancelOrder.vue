@@ -15,6 +15,7 @@
                     <div class="yuan" v-if="reason.istrue" @click="checkyuan(reason)"></div>
                     <div class="yuan-img" v-else>
                         <img src="@/assets/img/confirmOrder/icon-02@2x.png">
+                        <img src="@/assets/img/confirmOrder/icon-02@2x.png">
                     </div>
                 </div>
                 <div class="btns">

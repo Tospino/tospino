@@ -13,7 +13,7 @@
             <img src="@/assets/img/confirmOrder/zhongguoyinhang@2x.png" />
           </span>
           <span class="c-999"></span>
-          <span :class="{'c-orange':i.a}" @click="bank(i)">{{i.msg}}</span>
+          <span :class="{'c-orange':i.a}">{{i.msg}}</span>
         </div>
         <div class="paymen-content-top" @click="toaddBankcar">
           <span></span>
@@ -23,11 +23,9 @@
         </div>
         <div class="paymen-content-top" @click="pay">
           <span></span>
-          <!-- <span class="c-999">></span> -->
-          <van-icon />
+          <span class="c-999"></span>
           <span>第三方付款</span>
         </div>
-
         <!-- <div class="btn-ljzf" @click="showpaymen">立即付款</div> -->
       </div>
     </van-action-sheet>
@@ -35,7 +33,6 @@
 </template>
 
 <script>
-import { park } from "@/api";
 export default {
   props: {
     title: {
@@ -83,12 +80,10 @@ export default {
           element.a = true;
         }
       });
-    },
 
-    // // 选择选项给前面的数据
-    // bank(i) {
-    //   this.$emit("showbank");
-    // },
+      this.showAction = false;
+      this.$emit("change", item);
+    },
     //显示支付弹窗
     showpaymen() {
       this.$emit("showpassword");
@@ -99,15 +94,8 @@ export default {
       this.$router.push({ name: "添加银行卡" });
     },
     pay() {
-      //   这个要付款的时候点击跳转，进行判断，要iframe框架跳转
-      park({
-        url: `/appWallet/CreateInvoice?orderCode=${this.orderSn}`,
-        method: "POST"
-      }).then(res => {
-        if (res.status_code) {
-          window.location.href = res.data.resultUrl;
-        }
-      });
+      this.showAction = false;
+      this.$emit("toParnet", { name: "第三方支付", type: 203 });
     }
   },
   components: {}
