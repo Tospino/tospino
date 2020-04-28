@@ -99,17 +99,41 @@ export default {
     },
     // 立即支付
     confirm() {
+      // if (this.payTypeList[0].type === 203) {
+      //   //    这个要付款的时候点击跳转，进行判断，要iframe框架跳转
+      //   park({
+      //     //   url: "/appWallet/CreateInvoice",
+      //   //   url: `/appWallet/CreateInvoice?orderCode=${this.orderSn}`,
+      //     method: "POST"
+      //   }).then(res => {
+      //       console.log(res);
+      //   //   if (res.status_code) {
+      //   //     window.location.href = res.data.resultUrl;
+      //   //   }
+      //   });
+      //   return;
+      // }
       if (this.payTypeList[0].type === 203) {
-        //    这个要付款的时候点击跳转，进行判断，要iframe框架跳转
         park({
-          //   url: "/appWallet/CreateInvoice",
-        //   url: `/appWallet/CreateInvoice?orderCode=${this.orderSn}`,
-          method: "POST"
+          url: "/appsaleorder/orderlaunchpay",
+          method: "POST",
+          data:{}
+          // data:{
+          //   payTypeDetail: 203,
+          //   orderList: [{ orderId: this.orderSn }]
+          // }
         }).then(res => {
-            console.log(res);
-        //   if (res.status_code) {
-        //     window.location.href = res.data.resultUrl;
-        //   }
+          console.log(res);
+          // window.location.href = res.Data.payMainNo;
+          //   park({
+          //     url: `/appWallet/CreateInvoice?orderCode=${this.Data.payMainNo}`,
+          //     method: "POST"
+          //   }).then(res => {
+          //     console.log(res);
+          //     // if (res.status_code) {
+          //     //   window.location.href = res.data.resultUrl;
+          //     // }
+          //   });
         });
         return;
       }
